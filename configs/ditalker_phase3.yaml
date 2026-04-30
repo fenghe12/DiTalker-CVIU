@@ -1,0 +1,58 @@
+# DiTalker Phase3: Expression Cross-Attention (ECA) Fine-tuning
+# Adds emotion cross-attention for expression control
+# Paper Section 3.2, Phase 3
+
+# Model
+pretrained_model_name_or_path: "models/Diffusion_Transformer/EasyAnimateV3-XL-2-InP-512x512"
+pretrained_i2v_weight: "output/ditalker_phase2/checkpoint-latest/transformer/diffusion_pytorch_model.safetensors"
+transformer_additional_kwargs:
+  enable_audio_attention: true
+  enable_style_attn: true
+  enable_scale_fusion: true
+  enable_audio_scale_fusion: true
+  enable_eca: true
+  enable_uvit: true
+  basic_block_type: "global_motionmodule"
+  enable_pose_adapter: true
+
+# Training
+train_batch_size: 2
+gradient_accumulation_steps: 2
+learning_rate: 2.0e-6
+lr_scheduler: "constant_with_warmup"
+lr_warmup_steps: 100
+max_train_steps: 30000
+mixed_precision: "bf16"
+gradient_checkpointing: true
+finetune_emo: true
+
+# Data
+train_data_dir: "data/train_emo"
+resolution: 512
+video_length: 16
+sample_stride: 4
+style_max_len: 256
+text_drop_ratio: 0.5
+
+# Diffusion
+noise_schedule: "scaled_linear"
+beta_start: 0.00085
+beta_end: 0.012
+prediction_type: "epsilon"
+snr_gamma: 5.0
+
+# Losses
+enable_region_mask_loss: true
+region_loss_weight: 2.0
+enable_repa: true
+repa_weight: 0.5
+enable_sync_lip_loss: true
+sync_lip_loss_weight: 0.5
+syncnet_checkpoint: "/mnt/pfs-gv8sxa/tts/dhg/yangjiahui/projects/Wav2Lip/syncnet_checkpoints_fenghe/checkpoint_step002330000.pth"
+
+# Logging
+output_dir: "output/ditalker_phase3"
+logging_dir: "logs/ditalker_phase3"
+report_to: "tensorboard"
+save_steps: 2000
+validation_steps: 1000

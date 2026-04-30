@@ -1,0 +1,33 @@
+# DiTalker Inference Configuration
+
+# Model
+pretrained_model_name_or_path: "models/Diffusion_Transformer/EasyAnimateV3-XL-2-InP-512x512"
+transformer_checkpoint: "output/ditalker_phase3/checkpoint-latest/transformer/diffusion_pytorch_model.safetensors"
+transformer_additional_kwargs:
+  enable_audio_attention: true
+  enable_style_attn: true
+  enable_scale_fusion: true
+  enable_audio_scale_fusion: true
+  enable_eca: true
+  enable_uvit: true
+  basic_block_type: "global_motionmodule"
+  enable_pose_adapter: true
+
+# Inference
+num_inference_steps: 25
+guidance_scale: 7.0
+resolution: 512
+video_length: 16
+seed: 42
+mixed_precision: "bf16"
+prompt: null
+expression: "neutral"
+negative_prompt: ""
+
+# Inputs
+reference_image: "examples/ref.png"
+audio_path: "examples/audio_emb.pt"
+phoneme_path: "examples/phoneme.json"
+style_clip_path: "examples/style.mat"
+pose_path: "examples/pose.npy"
+output_path: "output/infer/result.mp4"

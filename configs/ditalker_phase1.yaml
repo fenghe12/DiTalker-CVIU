@@ -1,0 +1,50 @@
+# DiTalker Phase1: Audio Attention Training
+# Train basic audio cross-attention from I2V pretrained weights
+# Paper Section 3.3, Phase 1
+
+# Model
+pretrained_model_name_or_path: "models/Diffusion_Transformer/EasyAnimateV3-XL-2-InP-512x512"
+transformer_additional_kwargs:
+  enable_audio_attention: true
+  enable_style_attn: false
+  enable_scale_fusion: false
+  enable_audio_scale_fusion: false
+  enable_eca: false
+  enable_uvit: true
+  basic_block_type: "global_motionmodule"
+
+# Training
+train_batch_size: 4
+gradient_accumulation_steps: 1
+learning_rate: 4.0e-6
+lr_scheduler: "constant_with_warmup"
+lr_warmup_steps: 500
+max_train_steps: 10000
+mixed_precision: "bf16"
+gradient_checkpointing: true
+trainable_modules: "."
+
+# Data
+train_data_dir: "data/train"
+resolution: 512
+video_length: 16
+sample_stride: 4
+
+# Diffusion
+noise_schedule: "scaled_linear"
+beta_start: 0.00085
+beta_end: 0.012
+prediction_type: "epsilon"
+snr_gamma: 5.0
+
+# Losses (Phase1: only basic MSE)
+enable_region_mask_loss: false
+enable_repa: false
+enable_sync_lip_loss: false
+
+# Logging
+output_dir: "output/ditalker_phase1"
+logging_dir: "logs/ditalker_phase1"
+report_to: "tensorboard"
+save_steps: 5000
+validation_steps: 2000

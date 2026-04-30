@@ -1,0 +1,59 @@
+# DiTalker Phase2: Full ASFM + Style + Pose + Auxiliary Losses
+# Adds style attention, scale adapter, pose adapter, REPA, SyncNet, eye mask losses
+# Paper Section 3.3, Phase 2
+
+# Model
+pretrained_model_name_or_path: "models/Diffusion_Transformer/EasyAnimateV3-XL-2-InP-512x512"
+pretrained_i2v_weight: "output/ditalker_phase1/checkpoint-latest/transformer/diffusion_pytorch_model.safetensors"
+transformer_additional_kwargs:
+  enable_audio_attention: true
+  enable_style_attn: true
+  enable_scale_fusion: true
+  enable_audio_scale_fusion: true
+  enable_eca: false
+  enable_uvit: true
+  basic_block_type: "global_motionmodule"
+  enable_pose_adapter: true
+
+# Training
+train_batch_size: 2
+gradient_accumulation_steps: 2
+learning_rate: 2.0e-5
+lr_scheduler: "constant_with_warmup"
+lr_warmup_steps: 200
+max_train_steps: 80000
+mixed_precision: "bf16"
+gradient_checkpointing: true
+only_train_audio: true
+zero_init: true
+
+# Data
+train_data_dir: "data/train"
+resolution: 512
+video_length: 16
+sample_stride: 4
+style_max_len: 256
+text_drop_ratio: 0.99
+
+# Diffusion
+noise_schedule: "scaled_linear"
+beta_start: 0.00085
+beta_end: 0.012
+prediction_type: "epsilon"
+snr_gamma: 5.0
+
+# Losses
+enable_region_mask_loss: true
+region_loss_weight: 2.0
+enable_repa: true
+repa_weight: 0.5
+enable_sync_lip_loss: true
+sync_lip_loss_weight: 0.5
+syncnet_checkpoint: "/mnt/pfs-gv8sxa/tts/dhg/yangjiahui/projects/Wav2Lip/syncnet_checkpoints_fenghe/checkpoint_step002330000.pth"
+
+# Logging
+output_dir: "output/ditalker_phase2"
+logging_dir: "logs/ditalker_phase2"
+report_to: "tensorboard"
+save_steps: 5000
+validation_steps: 2000
