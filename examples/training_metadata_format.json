@@ -1,0 +1,11 @@
+[
+  {
+    "file_path": "datasets/demo/videos_25/demo_0001.mp4",
+    "text": "This person is neutral and talks.",
+    "type": "video",
+    "audio_emb_path": "datasets/demo/whisper_audio_emb/demo_0001.pt",
+    "phoneme_dir": "datasets/demo/phoneme/demo_0001.json",
+    "3dmm_dir": "datasets/demo/3dmm/demo_0001.mat",
+    "pose_video_path": "datasets/demo/videos_25_dwpose/demo_0001.mp4"
+  }
+]

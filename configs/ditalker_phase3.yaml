@@ -48,7 +48,7 @@ enable_repa: true
 repa_weight: 0.5
 enable_sync_lip_loss: true
 sync_lip_loss_weight: 0.5
-syncnet_checkpoint: "/mnt/pfs-gv8sxa/tts/dhg/yangjiahui/projects/Wav2Lip/syncnet_checkpoints_fenghe/checkpoint_step002330000.pth"
+syncnet_checkpoint: "path/to/syncnet_checkpoint.pth"
 
 # Logging
 output_dir: "output/ditalker_phase3"

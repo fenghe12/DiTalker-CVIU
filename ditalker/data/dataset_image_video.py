@@ -435,8 +435,6 @@ class ImageVideoDataset(Dataset):
                 # phoneme_win=torch.zeros(780,11)
                 # print(phoneme_win.shape)
                 style_clip_path =  data_info["3dmm_dir"]
-                # print(style_clip_path)
-                # style_clip_path = "/mnt/pfs-mc0p4k/tts/team/digital_avatar_group/fenghe/datasets/mead/3dmm/videos/W016_fear_016.mat"
                 style_clip, pad_mask = get_video_style_clip(style_clip_path, style_max_len=256, start_idx=0)
                 # print(style_clip.shape)
                 # print(pad_mask.shape)
