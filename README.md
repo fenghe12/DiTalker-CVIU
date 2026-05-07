@@ -101,6 +101,8 @@ model-overview/          Mapping from paper modules to code
 
 ## Data Preparation
 
+The training dataset **DH-FaceVId-1K** is publicly available. Please visit [this form](https://docs.google.com/forms/d/e/1FAIpQLSd92kS6ZdAGLoN6DvYUVUDCo7R3Oe6GNVPjQn4sDBPJH7_2_A/viewform) to request access.
+
 DiTalker follows the EasyAnimate metadata format and adds paths for audio, phoneme, 3DMM, pose, and mask conditions. A minimal training record is:
 
 ```json
